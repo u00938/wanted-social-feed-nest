@@ -1,18 +1,25 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import config from '@/config';
+import { PostModule } from './modules/post.ts/post.module';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    TypeOrmModule.forRoot(config.db[0])
+    TypeOrmModule.forRoot(config.db[0]),
+    PostModule
   ],
-  controllers: [AppController],
-  providers: [AppService]
+  controllers: [],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe
+    }
+  ]
 })
 export class AppModule {}

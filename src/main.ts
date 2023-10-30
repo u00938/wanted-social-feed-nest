@@ -7,6 +7,7 @@ import { ExpressAdapter, NestExpressApplication } from '@nestjs/platform-express
 import helmet from 'helmet';
 import morgan from 'morgan';
 import config from '@/config';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
@@ -19,6 +20,8 @@ async function bootstrap() {
   app.use(helmet());
   app.setGlobalPrefix('/api');
   app.use(morgan('combined'));
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   await app.listen(config.port)
     .then(async () => {

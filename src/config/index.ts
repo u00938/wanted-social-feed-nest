@@ -12,7 +12,7 @@ export default {
   port: process.env.NODE_PORT,
   db: [
     {
-      name: 'social_feed',
+      // name: 'social_feed',
       type: 'mysql',
       host: process.env.DATABASE_HOST,
       username: process.env.DATABASE_USER,
