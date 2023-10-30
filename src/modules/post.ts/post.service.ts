@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostListQueryDto } from './post.dto';
+import { sendLike, sendShare } from '@/proxy/socialMedia';
 
 @Injectable()
 export class PostService {
@@ -99,5 +100,41 @@ export class PostService {
     const list = await listQuery.getRawMany();
 
     return list;
+  }
+
+  async likePost(postId): Promise<object> {
+    const post = await this.postRepository
+    .findOneBy({ id: postId });
+
+    if (post) {
+      // await sendLike(post.snsType, postId);
+      // TODO: 응답에 따라 분기 및 액션
+      const updateLike = await this.postRepository
+      .update(postId, {
+        likeCount: post.likeCount + 1
+      })
+
+      if (updateLike.affected) post.likeCount ++;
+    }
+
+    return { likeCount: post ? post.likeCount ++ : 0 };
+  }
+
+  async sharePost(postId): Promise<object> {
+    const post = await this.postRepository
+    .findOneBy({ id: postId });
+
+    if (post) {
+      // await sendShare(post.snsType, postId);
+      // TODO: 응답에 따라 분기 및 액션
+      const updateShare = await this.postRepository
+      .update(postId, {
+        shareCount: post.shareCount + 1
+      })
+
+      if (updateShare.affected) post.shareCount ++;
+    }
+
+    return { shareCount: post ? post.shareCount : 0 };
   }
 }

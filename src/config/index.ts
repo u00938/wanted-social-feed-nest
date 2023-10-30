@@ -20,5 +20,27 @@ export default {
       database: process.env.DATABASE_NAME,
       entities: [process.env.TYPEORM_ENTITIES]
     } as TypeOrmModuleOptions
-  ]
+  ],
+  proxy: {
+    twitter: {
+      baseUrl: process.env.PROXY_TWITTER_BASEURL,
+      sharePath: process.env.PROXY_TWITTER_SHAREPATH,
+      likePath: process.env.PROXY_TWITTER_LIKEPATH
+    },
+    instagram: {
+      baseUrl: process.env.PROXY_INSTAGRAM_BASEURL,
+      sharePath: process.env.PROXY_INSTAGRAM_SHAREPATH,
+      likePath: process.env.PROXY_INSTAGRAM_LIKEPATH
+    },
+    threads: {
+      baseUrl: process.env.PROXY_THREADS_BASEURL,
+      sharePath: process.env.PROXY_THREADS_SHAREPATH,
+      likePath: process.env.PROXY_THREADS_LIKEPATH
+    },
+    facebook: {
+      baseUrl: process.env.PROXY_FACEBOOK_BASEURL,
+      sharePath: process.env.PROXY_FACEBOOK_SHAREPATH,
+      likePath: process.env.PROXY_FACEBOOK_LIKEPATH
+    }
+  }
 }

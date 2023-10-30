@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { PostService } from './post.service';
 import { PostListQueryDto } from './post.dto';
 
@@ -31,5 +31,23 @@ export class PostController {
     const result = await this.postService.getPostList(query);
     return result;
   }
+
+  // 좋아요
+  @Put('like/:id')
+  async likePost(
+    @Param('id') postId: string
+  ) {
+    const result = await this.postService.likePost(postId);
+    return result;
+  }
+
+  // 공유
+  @Put('share/:id')
+  async sharePost(
+    @Param('id') postId: string
+  ) {
+    const result = await this.postService.sharePost(postId);
+    return result;
+  }  
 
 }
